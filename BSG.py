@@ -1,7 +1,7 @@
 import numpy as np
 
 class Game:
-	def __init__(self, bankroll, limit) #limit should be odd
+	def __init__(self, bankroll, limit): #limit should be odd
 		self.bankroll = bankroll #bankroll is the total amount
 		self.limit = limit		 #limit is the number of plays
 		self.bank1 = self.bankroll
@@ -11,9 +11,7 @@ class Game:
 		self.state = np.array([])
 
 	def stage(self, bid1, bid2):
-		if bid1 == bid2:
-			#nothing happens
-		else:
+		if bid1 <> bid2:
 			self.bank1 -= bid1
 			self.bank2 -= bid2
 			if bid1 > bid2:
@@ -26,7 +24,7 @@ class Game:
 		
 		return self.state
 
-	def reset(self)
+	def reset(self):
 		self.bank1 = self.bankroll
 		self.bank2 = self.bankroll
 		self.win1 = 0
