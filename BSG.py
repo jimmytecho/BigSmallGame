@@ -10,7 +10,7 @@ class Game:
 		self.win2 = 0
 		self.state = np.array([])
 
-	def stage(self, bid1, bid2):
+	def play(self, bid1, bid2):
 		if bid1 <> bid2:
 			self.bank1 -= bid1
 			self.bank2 -= bid2
@@ -19,8 +19,6 @@ class Game:
 			else:
 				self.win2 += 1
 		self.state = [self.bank1, self.bank2, self.win1, self.win2, self.win1+self.win2]
-		
-		if self.win1+self.win2 == self.limit: self.reset()
 		
 		return self.state
 
