@@ -90,7 +90,7 @@ state_size = 5
 action_size = bankroll + 1
 agent = Agent(state_size, action_size)
 batch_size = 32
-#agent.load("./save/BSG-dqn.h5")
+agent.load("./save/BSG-dqn.h5")
 for e in range(EPS):
 	A = unv.reset()
 	B = unv.reset()

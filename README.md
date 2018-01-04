@@ -29,14 +29,16 @@ I believe that to guess the trends of the opponents behaviour is purely a psycho
 ## the plan
 The Basics:
 1. build a q learning algorithm to train to play BigSmallGame (qlearn)
-2. configure AI to perform better
-3. find underlying game theory, and configure AI accordingly
+----------------------should consider algorithms other than q learning beyond this point----------------------------
+2. configure AI to perform better. (Currently thinking about breaking AI into 9 parts each corresponding to different win situation)
 
-Advanced:
+Continue to:
 1. simple code to play with AI (qplay)
 2. build a chatbot connected to qplay
 
-Final Goal:
+Final Goal1:
 1. connect qplay to sementics and languages
 2. modify chatbot accordingly 
 
+Final Goal2:
+1. Adapt to human/other AI bahaviour (multigame immediately changing tacticts)
