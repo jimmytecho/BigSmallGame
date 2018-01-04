@@ -90,55 +90,44 @@ state_size = 5
 action_size = bankroll + 1
 agent = Agent(state_size, action_size)
 batch_size = 32
-#agent.load("./save/BSG-dqn.h5")
-for e in range(EPS):
-	A = unv.reset()
-	B = unv.reset()
-	A = np.reshape(A, [1, state_size])
-	B = np.reshape(B, [1, state_size])
-	done = 0
-	while 1:
-		bank1, bank2, win1, win2, stage = A[0]
-		B = np.array([[bank2, bank1, win2, win1, stage]])
-		act1 = agent.act(A)
-		act2 = agent.act(B)
-		result = unv.play(act1, act2) #a BSG state
-		bank1, bank2, win1, win2, stage = result
-		
-		reward1, reward2 = 0,0
-		
-		if stage == limit:
-			if win1>win2: reward1 = 1
-			elif win2>win1: reward2 = 1
-			done = 1
-		if bank1 < 0:
-			reward1 = -1
-			done = 1
-		if bank2 < 0:
-			reward2 = -1
-			done = 1
-		print result
-	
-		T = result
-		result_B = [T[1],T[0],T[3],T[2],T[4]]
-		result = np.reshape(result, [1,5])
-		result_B = np.reshape(result_B, [1,5])
+agent.load("./save/BSG-dqn.h5")
 
-		agent.remember(A, act1, reward1, result, done)
-		agent.remember(B, act2, reward2, result_B, done)
-		A = result
-		B = result_B
-		if done:
-			print("episode: {}/{}, stage: {}, tau: {:.2}".format(e, EPS, stage, agent.tau))
-			unv.reset()
-			break
-		if len(agent.memory) > batch_size:
-			agent.replay(batch_size)
-		
-	if e % 100 == 0:
-		agent.save("./save/BSG-dqn.h5")
+AI = unv.reset()
+AI = np.reshape(AI, [1, state_size])
 
+done = 0
+run = 1
 
+while run:
+	bank1, bank2, win1, win2, stage = AI[0]
+	act1 = agent.act(AI)
+	bank2_str = str(bank2)
+	inq = raw_input('Choose a number less than ' + bank2_str + '\n')
+	act2 = int(inq)
+	result = unv.play(act1, act2) #a BSG state
+	bank1, bank2, win1, win2, stage = result		
+	if stage == limit:
+		if win1>win2: print('you loose!')
+		elif win2>win1: print('wow you are amazing!')
+		done = 1
+	if bank1 < 0:
+		print('oops')
+		done = 1
+	if bank2 < 0:
+		print('you are bankrupt!')
+		done = 1
+	print result
+	result = np.reshape(result, [1,5])
+	AI = result
+	if done:
+		print("good game!")
+		inq = raw_input('another game? (y/n)')
+		if inq == 'y':
+			AI = unv.reset()
+			AI = np.reshape(AI, [1, state_size])
+			done = 0
+		else: 
+			run = 0
 
 		
 
