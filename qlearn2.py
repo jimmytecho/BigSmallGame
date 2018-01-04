@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import random
 import gym
 import numpy as np
@@ -90,7 +90,10 @@ state_size = 5
 action_size = bankroll + 1
 agent = Agent(state_size, action_size)
 batch_size = 32
-agent.load("./save/BSG-dqn.h5")
+try: 
+	agent.load("./save/BSG-dqn2.h5")
+except:
+	pass
 for e in range(EPS):
 	A = unv.reset()
 	B = unv.reset()
@@ -106,7 +109,10 @@ for e in range(EPS):
 		bank1, bank2, win1, win2, stage = result
 		
 		reward1, reward2 = 0,0
-		
+		if win1 == win2+1: reward1, reward2 = 0.1,-0.1		
+		if win1 == win2+2: reward1, reward2 = 0.5,-0.5
+		if win1 == win2-1: reward1, reward2 = -0.1,0.1
+		if win1 == win2-2: reward1, reward2 = -0.5,0.5
 		if stage == limit:
 			if win1>win2: reward1 = 1
 			elif win2>win1: reward2 = 1
@@ -136,4 +142,11 @@ for e in range(EPS):
 			agent.replay(batch_size)
 		
 	if e % 100 == 0:
-agent.save("./save/BSG-dqn.h5")
+		agent.save("./save/BSG-dqn2.h5")
+
+
+
+		
+
+
+
