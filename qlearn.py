@@ -25,8 +25,8 @@ class Agent:
 	def _build_model(self):
 		#The Neural Net Model
 		model = Sequential()
-		model.add(Dense(32, input_dim = self.state_size, activation = 'tanh'))
-		model.add(Dense(32, activation = 'tanh'))
+		model.add(Dense(64, input_dim = self.state_size, activation = 'tanh'))
+		model.add(Dense(64, activation = 'tanh'))
 		model.add(Dense(self.action_size, activation = 'tanh'))
 		model.compile(loss='mse', optimizer = Adam(lr=self.learning_rate))
 		return model
@@ -80,7 +80,7 @@ class Agent:
 
 import BSG
 
-bankroll = 10
+bankroll = 100
 limit = 5
 
 EPS = 500 #Episodes
